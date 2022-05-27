@@ -12,7 +12,7 @@ console.log(typeof title, typeof fullPrice, typeof adaptive);
 console.log(screens.length);
 
 console.log("Стоимость верстки экранов " + screenPrice + " долларов");
-console.log("Стоимость разработки сайта" + " " + fullPrice + " " + "долларов")
+console.log("Стоимость разработки сайта" + " " + fullPrice + " " + "долларов");
 
 console.log(screens.toLocaleLowerCase());
 console.log(screens.split(', '));
