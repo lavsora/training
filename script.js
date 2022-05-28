@@ -1,9 +1,9 @@
 const title = "Training project";
 let screens = "Simple, Complex, Interactive";
 const screenPrice = 50;
-let rollback = 24;
+const rollback = 24;
 const fullPrice = 256;
-let adaptive = false;
+const adaptive = false;
 
 console.log(typeof title, typeof fullPrice, typeof adaptive);
 
