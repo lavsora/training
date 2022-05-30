@@ -27,7 +27,6 @@ switch(true) {
         break;
     default:
         console.log('Что то пошло не так');
-        break;
 }
 
 console.log(typeof title, typeof fullPrice, typeof adaptive);
