@@ -16,22 +16,22 @@ let servicePercentPrice;
 let allServicePrices;
 
 const showTypeOf = function(variable) {
-    console.log(variable, typeof variable);
+    return variable + ` - ` + typeof variable;
 };
 
 const getRollBackMessage = function(price) {
     switch(true) {
         case price >= 30000:
-            console.log('Даем скидку в 10%');
-            break;
+            return 'Даем скидку в 10%';
+            
         case price >= 15000:
-            console.log('Даем скидку в 5%');
-            break;
+            return'Даем скидку в 5%';
+            
         case price >= 0:
-            console.log('Скидка не предусмотрена');
-            break;
+            return'Скидка не предусмотрена';
+            
         default:
-            console.log('Что то пошло не так');
+            return'Что то пошло не так';
     }
 }
 
@@ -43,8 +43,10 @@ function getFullPrice(scrPrice, allServPrice) {
     return scrPrice + allServPrice;
 };
 
-const getTitle = function(str, callback) {
-    return callback(str).charAt(0).toUpperCase() + callback(str).substring(1).toLowerCase();
+const getTitle = function(str) {
+    str = str.trim();
+
+    return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 };
 
 const getServicePercentPrices = function(fPrice, rBack) {
@@ -53,17 +55,15 @@ const getServicePercentPrices = function(fPrice, rBack) {
 
 allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
 fullPrice = getFullPrice(screenPrice, allServicePrices);
-title = getTitle(title, function(strDeleteTabs) {
-    return strDeleteTabs.trim();
-});
+title = getTitle(title);
 servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 
-showTypeOf(title);
-showTypeOf(fullPrice);
-showTypeOf(adaptive);
+console.log(showTypeOf(title));
+console.log(showTypeOf(fullPrice));
+console.log(showTypeOf(adaptive));
 
 console.log(screens);
 
-getRollBackMessage(fullPrice);
+console.log(getRollBackMessage(fullPrice));
 
 console.log('Чистая прибыль ' + servicePercentPrice + ' долларов');
