@@ -1,42 +1,69 @@
-const title = prompt('Как называется ваш проект?');
-let screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
-const screenPrice = +prompt('Сколько будет стоить данная работа?');
-let adaptive = confirm('Нужен ли адаптив на сайте?');
+'use strict'
 
+let title = prompt('Как называется ваш проект?');
+
+const screens = prompt('Какие типы экранов нужно разработать?');
+const screenPrice = +prompt('Сколько будет стоить данная работа?');
+const adaptive = confirm('Нужен ли адаптив на сайте?');
 const service1 = prompt('Какой дополнительный тип услуги нужен?');
 const servicePrice1 = +prompt('Сколько это будет стоить?');
 const service2 = prompt('Какой дополнительный тип услуги нужен?');
 const servicePrice2 = +prompt('Сколько это будет стоить?');
-
 const rollback = 24;
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
-const servicePercentPrice = Math.ceil(fullPrice - fullPrice * (rollback/100));
+let fullPrice;
+let servicePercentPrice;
+let allServicePrices;
 
-console.log('Чистая прибыль ' + servicePercentPrice + ' рублей');
+const showTypeOf = function(variable) {
+    return variable + ` - ` + typeof variable;
+};
 
-switch(true) {
-    case fullPrice >= 30000:
-        console.log('Даем скидку в 10%');
-        break;
-    case fullPrice >= 15000:
-        console.log('Даем скидку в 5%');
-        break;
-    case fullPrice >= 0:
-        console.log('Скидка не предусмотрена');
-        break;
-    default:
-        console.log('Что то пошло не так');
+const getRollBackMessage = function(price) {
+    switch(true) {
+        case price >= 30000:
+            return 'Даем скидку в 10%';
+            
+        case price >= 15000:
+            return'Даем скидку в 5%';
+            
+        case price >= 0:
+            return'Скидка не предусмотрена';
+            
+        default:
+            return'Что то пошло не так';
+    }
 }
 
-console.log(typeof title, typeof fullPrice, typeof adaptive);
+const getAllServicePrices = function(servPrice1, servPrice2) {
+    return servPrice1 + servPrice2;
+};
 
-console.log(screens.length);
+function getFullPrice(scrPrice, allServPrice) {
+    return scrPrice + allServPrice;
+};
 
-console.log("Стоимость верстки экранов " + screenPrice + " долларов");
-console.log("Стоимость разработки сайта " + fullPrice + " долларов");
+const getTitle = function(str) {
+    str = str.trim();
 
-console.log(screens.toLocaleLowerCase());
-console.log(screens.split(', '));
+    return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+};
 
-console.log("Процент отката посреднику за работу " + fullPrice * (rollback/100) + " долларов");
+const getServicePercentPrices = function(fPrice, rBack) {
+    return Math.ceil(fPrice - fPrice * (rBack/100));
+};
+
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+fullPrice = getFullPrice(screenPrice, allServicePrices);
+title = getTitle(title);
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
+
+console.log(showTypeOf(title));
+console.log(showTypeOf(fullPrice));
+console.log(showTypeOf(adaptive));
+
+console.log(screens);
+
+console.log(getRollBackMessage(fullPrice));
+
+console.log('Чистая прибыль ' + servicePercentPrice + ' долларов');
