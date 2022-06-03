@@ -49,30 +49,25 @@ const getRollBackMessage = function(price) {
 }
 
 const getAllServicePrices = function() {
-    let servPrice1;
-    let servPrice2;
-    let sumServPrice;
+    let sum;
 
     for (let i = 0; i < 2; i++) {
+        let price = 0;
 
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?');
-
-            do {
-                servPrice1 = +prompt('Сколько это будет стоить?');
-            } while (!isNumber(servPrice1))
-
         } else if (i === 1) {
             service2 = prompt('Какой дополнительный тип услуги нужен?');
-
-            do {
-                servPrice2 = +prompt('Сколько это будет стоить?');
-            } while (!isNumber(servPrice2))
-
         }
+
+        do {
+            price = prompt('Сколько это будет стоить?');
+        } while (!isNumber(price))
+
+        sum += price;
     }
 
-    return sumServPrice = servPrice1 + servPrice2;
+    return sum;
 };
 
 function getFullPrice() {
