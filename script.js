@@ -13,7 +13,7 @@ let service2;
 const rollback = 10;
 
 const isNumber = function(num) {
-    return !isNaN(parseFloat(num)) && isFinite(num);
+    return !isNaN(parseFloat(num)) && isFinite(num) && !/\s/g.test(num);
 }
 
 const asking = function() {
@@ -85,7 +85,6 @@ const getServicePercentPrices = function() {
 };
 
 asking();
-screenPrice = screenPrice.replace(/\s/g, '');
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
 title = getTitle(title);
