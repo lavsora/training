@@ -44,7 +44,7 @@ const appData = {
             let price = 0;
 
             do {
-               name = prompt('Какой дополнительный тип услуги нужен?');
+               name = prompt('Какой дополнительный тип услуги нужен?') + [i];
             } while (!appData.isString(name));
     
             do {
