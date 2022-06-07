@@ -10,15 +10,15 @@ const buttonScreen = document.querySelector('.screen-btn');
 const number = document.querySelectorAll('.other-items.number');
 const percent = document.querySelectorAll('.other-items.percent');
 
-const inputTypeRange = document.querySelector('.rollback input');
+const inputSliderRollback = document.querySelector('.rollback input');
 
 const spanRangeValue = document.querySelector('.rollback span')
 
-const inputWithTotalInput1 = document.getElementsByClassName('total-input')[0]
-const inputWithTotalInput2 = document.getElementsByClassName('total-input')[1]
-const inputWithTotalInput3 = document.getElementsByClassName('total-input')[2]
-const inputWithTotalInput4 = document.getElementsByClassName('total-input')[3]
-const inputWithTotalInput5 = document.getElementsByClassName('total-input')[4]
+const inputLayotPrice = document.getElementsByClassName('total-input')[0]
+const inputAmountScreen = document.getElementsByClassName('total-input')[1]
+const inputServicesPrice = document.getElementsByClassName('total-input')[2]
+const inputFullPrice = document.getElementsByClassName('total-input')[3]
+const inputFullPriceRollback = document.getElementsByClassName('total-input')[4]
 
 let divScreen = document.querySelectorAll('div.screen')
 
