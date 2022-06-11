@@ -120,8 +120,11 @@ const appData = {
         })
     },
     addScreenBlock: function () {
+        divScreen = document.querySelectorAll('.screen');
+        
         const cloneScreen = divScreen[0].cloneNode(true);
 
+        cloneScreen.querySelector('input').value = '';
         divScreen[divScreen.length - 1].after(cloneScreen);
     },
     addPrices: function () {
