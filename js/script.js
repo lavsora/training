@@ -19,7 +19,7 @@ const inputServicesPrice = document.getElementsByClassName('total-input')[2];
 const inputFullPrice = document.getElementsByClassName('total-input')[3];
 const inputFullPriceRollback = document.getElementsByClassName('total-input')[4];
 
-let divScreen = document.querySelectorAll('.screen');
+let divScreen = document.getElementsByClassName('screen');
 
 const appData = {
     title: '',
@@ -43,18 +43,16 @@ const appData = {
         inputSliderRollback.addEventListener('input', appData.addRollback);
     },
     checkValue: function () {
-        divScreen = document.querySelectorAll('.screen');
-
         appData.isError = false;
 
-        divScreen.forEach(function (value) {
-            const selectValue = value.querySelector('select').value;
-            const inputValue = value.querySelector('input').value;
+        for (let i = 0; i < divScreen.length; i++) {
+            const selectValue = document.querySelector('.screen select').value;
+            const inputValue = document.querySelector('.screen input').value;
 
             if (selectValue === '' || inputValue === '') {
                 appData.isError = true
             }
-        })
+        }
 
         if (!appData.isError) {
             appData.start();
@@ -83,20 +81,18 @@ const appData = {
         appData.rollback = +inputSliderRollback.value;
     },
     addScreens: function () {
-        divScreen = document.querySelectorAll('.screen')
-
-        divScreen.forEach(function (screen, index) {
-            const select = screen.querySelector('select');
-            const input = screen.querySelector('input');
+        for (let i = 0; i < divScreen.length; i++) {
+            const select = document.querySelector('select');
+            const input = document.querySelector('input');
             const selectName = select.options[select.selectedIndex].textContent;
 
             appData.screens.push({
-                id: index,
+                id: i,
                 name: selectName,
                 price: +select.value * +input.value,
                 count: +input.value
             });
-        });
+        }
     },
     addServices: function () {
         percent.forEach(function (item) {
@@ -120,8 +116,6 @@ const appData = {
         })
     },
     addScreenBlock: function () {
-        divScreen = document.querySelectorAll('.screen');
-        
         const cloneScreen = divScreen[0].cloneNode(true);
 
         cloneScreen.querySelector('input').value = '';
