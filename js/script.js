@@ -40,7 +40,8 @@ const appData = {
 
         buttonStart.addEventListener('click', appData.checkValue);
         buttonScreen.addEventListener('click', appData.addScreenBlock);
-        inputSliderRollback.addEventListener('input', appData.addRollback);
+        inputSliderRollback.addEventListener('input', appData.addSpanRangeValue);
+        inputSliderRollback.addEventListener('change', appData.addRollbackValue);
     },
     checkValue: function () {
         appData.isError = false;
@@ -76,9 +77,14 @@ const appData = {
         inputFullPriceRollback.value = appData.servicePercentPrice;
         inputAmountScreen.value = appData.countScreen;
     },
-    addRollback: function () {
+    addSpanRangeValue: function () {
         spanRangeValue.textContent = `${inputSliderRollback.value}%`;
+    },
+    addRollbackValue: function () {
         appData.rollback = +inputSliderRollback.value;
+        appData.servicePercentPrice = Math.ceil(appData.fullPrice - appData.fullPrice * (appData.rollback / 100));
+        
+        appData.showResult();
     },
     addScreens: function () {
         for (let i = 0; i < divScreen.length; i++) {
