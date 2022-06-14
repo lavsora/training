@@ -47,8 +47,8 @@ const appData = {
         appData.isError = false;
 
         for (let i = 0; i < divScreen.length; i++) {
-            const selectValue = document.querySelector('.screen select').value;
-            const inputValue = document.querySelector('.screen input').value;
+            const selectValue = divScreen[i].querySelector('.screen select').value;
+            const inputValue = divScreen[i].querySelector('.screen input').value;
 
             if (selectValue === '' || inputValue === '') {
                 appData.isError = true
@@ -88,9 +88,10 @@ const appData = {
     },
     addScreens: function () {
         for (let i = 0; i < divScreen.length; i++) {
-            const select = document.querySelector('select');
-            const input = document.querySelector('input');
+            const select = divScreen[i].querySelector('select');
+            const input = divScreen[i].querySelector('input');
             const selectName = select.options[select.selectedIndex].textContent;
+            
 
             appData.screens.push({
                 id: i,
