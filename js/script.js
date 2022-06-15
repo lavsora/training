@@ -75,9 +75,10 @@ const appData = {
     },
     reset: function () {
         this.deleteScreenBlock();
+        this.deleteCheck();
         this.deleteSpanRangeValue();
         this.clearPrices();
-        this.showResultClear();
+        this.showResult();
         this.visionInputAndSelect();
         this.btnStartVision();
     },
@@ -87,13 +88,6 @@ const appData = {
         inputFullPrice.value = this.fullPrice;
         inputFullPriceRollback.value = this.servicePercentPrice;
         inputAmountScreen.value = this.countScreen;
-    },
-    showResultClear: function () {
-        inputLayotPrice.value = 0;
-        inputServicesPrice.value = 0;
-        inputFullPrice.value = 0;
-        inputFullPriceRollback.value = 0;
-        inputAmountScreen.value = 0;
     },
     disabledInputAndSelect: function () {
         for (let i = 0; i < divScreen.length; i++) {
@@ -128,7 +122,7 @@ const appData = {
     addRollbackValue: function () {
         this.rollback = +inputSliderRollback.value;
         this.servicePercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.rollback / 100));
-        
+
         this.showResult();
     },
     addScreens: function () {
@@ -136,7 +130,7 @@ const appData = {
             const select = divScreen[i].querySelector('select');
             const input = divScreen[i].querySelector('input');
             const selectName = select.options[select.selectedIndex].textContent;
-            
+
 
             this.screens.push({
                 id: i,
@@ -193,6 +187,19 @@ const appData = {
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
 
         this.servicePercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.rollback / 100));
+    },
+    deleteCheck: function () {
+        percent.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+
+            if (check.checked) check.checked = false;
+        })
+
+        number.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+
+            if (check.checked) check.checked = false;
+        })
     },
     deleteScreenBlock: function () {
         for (let i = 1; i < divScreen.length; i) {
