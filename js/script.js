@@ -102,7 +102,7 @@ const appData = {
         }
     },
     addServices: function () {
-        percent.forEach(function (item) {
+        percent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
             const label = item.querySelector('label');
             const input = item.querySelector('input[type=text]');
@@ -112,7 +112,7 @@ const appData = {
             }
         })
 
-        number.forEach(function (item) {
+        number.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
             const label = item.querySelector('label');
             const input = item.querySelector('input[type=text]');
@@ -129,7 +129,7 @@ const appData = {
         divScreen[divScreen.length - 1].after(cloneScreen);
     },
     addPrices: function () {
-        appData.screenPrice = appData.screens.reduce(function (sum, screen) {
+        appData.screenPrice = appData.screens.reduce((sum, screen) => {
             return sum + +screen.price;
         }, 0)
 
@@ -148,15 +148,6 @@ const appData = {
         appData.fullPrice = +appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent;
 
         appData.servicePercentPrice = Math.ceil(appData.fullPrice - appData.fullPrice * (appData.rollback / 100));
-    },
-    logger: function () {
-        console.log('appData.fullPrice - ' + appData.fullPrice);
-        console.log('appData.servicePercentPrice - ' + appData.servicePercentPrice);
-        console.log(appData.screens);
-
-        for (let key in appData) {
-            console.log('Свойства и методы appData: ' + key);
-        }
     }
 }
 
