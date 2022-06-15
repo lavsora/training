@@ -39,6 +39,7 @@ const appData = {
         this.addTitle();
 
         buttonStart.addEventListener('click', this.checkValue.bind(appData));
+        buttonReset.addEventListener('click', this.reset.bind(appData));
         buttonScreen.addEventListener('click', this.addScreenBlock);
         inputSliderRollback.addEventListener('input', this.addSpanRangeValue);
         inputSliderRollback.addEventListener('change', this.addRollbackValue.bind(appData));
@@ -69,6 +70,16 @@ const appData = {
         this.addServices();
         this.addPrices();
         this.showResult();
+        this.disabledInputAndSelect();
+        this.btnResetVision();
+    },
+    reset: function () {
+        this.deleteScreenBlock();
+        this.deleteSpanRangeValue();
+        this.clearPrices();
+        this.showResultClear();
+        this.visionInputAndSelect();
+        this.btnStartVision();
     },
     showResult: function () {
         inputLayotPrice.value = this.screenPrice;
@@ -76,6 +87,40 @@ const appData = {
         inputFullPrice.value = this.fullPrice;
         inputFullPriceRollback.value = this.servicePercentPrice;
         inputAmountScreen.value = this.countScreen;
+    },
+    showResultClear: function () {
+        inputLayotPrice.value = 0;
+        inputServicesPrice.value = 0;
+        inputFullPrice.value = 0;
+        inputFullPriceRollback.value = 0;
+        inputAmountScreen.value = 0;
+    },
+    disabledInputAndSelect: function () {
+        for (let i = 0; i < divScreen.length; i++) {
+            const select = divScreen[i].querySelector('.screen select');
+            const input = divScreen[i].querySelector('.screen input');
+
+            select.setAttribute('disabled', 'disabled');
+            input.setAttribute('disabled', 'disabled');
+        }
+    },
+    visionInputAndSelect: function () {
+        const select = document.querySelector('.screen select');
+        const input = document.querySelector('.screen input');
+
+        select.value = '';
+        input.value = '';
+
+        select.removeAttribute('disabled');
+        input.removeAttribute('disabled');
+    },
+    btnResetVision: function () {
+        buttonStart.style.display = 'none';
+        buttonReset.removeAttribute('style');
+    },
+    btnStartVision: function () {
+        buttonReset.style.display = 'none';
+        buttonStart.removeAttribute('style');
     },
     addSpanRangeValue: function () {
         spanRangeValue.textContent = `${inputSliderRollback.value}%`;
@@ -148,6 +193,27 @@ const appData = {
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
 
         this.servicePercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.rollback / 100));
+    },
+    deleteScreenBlock: function () {
+        for (let i = 1; i < divScreen.length; i) {
+            divScreen[i].remove();
+        }
+    },
+    clearPrices: function () {
+        this.screens = [];
+        this.screenPrice = 0;
+        this.countScreen = 0;
+        this.rollback = 0;
+        this.fullPrice = 0;
+        this.servicePercentPrice = 0;
+        this.servicePricesPercent = 0;
+        this.servicePricesNumber = 0;
+        this.servicesPercent = {};
+        this.servicesNumber = {};
+    },
+    deleteSpanRangeValue: function () {
+        spanRangeValue.textContent = '0%';
+        inputSliderRollback.value = 0;
     }
 }
 
