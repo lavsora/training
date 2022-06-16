@@ -71,6 +71,8 @@ const appData = {
         this.addPrices();
         this.showResult();
         this.disabledInputAndSelect();
+        this.disabledBtnScreen();
+        this.disabledCheckbox();
         this.btnResetVision();
     },
     reset: function () {
@@ -79,6 +81,8 @@ const appData = {
         this.deleteSpanRangeValue();
         this.clearPrices();
         this.showResult();
+        this.activatedCheckbox();
+        this.activatedBtnScreen();
         this.visionInputAndSelect();
         this.btnStartVision();
     },
@@ -97,6 +101,46 @@ const appData = {
             select.setAttribute('disabled', 'disabled');
             input.setAttribute('disabled', 'disabled');
         }
+    },
+    disabledCheckbox: function () {
+        const cms = document.querySelector('#cms-open');
+
+        cms.setAttribute('disabled', 'disabled');
+
+        percent.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            
+            check.setAttribute('disabled', 'disabled');
+        });
+
+        number.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            
+            check.setAttribute('disabled', 'disabled');
+        });
+    },
+    disabledBtnScreen: function () {
+        buttonScreen.setAttribute('disabled', 'disabled');
+    },
+    activatedCheckbox: function () {
+        const cms = document.querySelector('#cms-open');
+
+        cms.removeAttribute('disabled');
+
+        percent.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            
+            check.removeAttribute('disabled');
+        });
+
+        number.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            
+            check.removeAttribute('disabled');
+        });
+    },
+    activatedBtnScreen: function () {
+        buttonScreen.removeAttribute('disabled');
     },
     visionInputAndSelect: function () {
         const select = document.querySelector('.screen select');
