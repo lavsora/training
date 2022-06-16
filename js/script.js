@@ -19,6 +19,9 @@ const inputServicesPrice = document.getElementsByClassName('total-input')[2];
 const inputFullPrice = document.getElementsByClassName('total-input')[3];
 const inputFullPriceRollback = document.getElementsByClassName('total-input')[4];
 
+const inputCms = document.querySelector('#cms-open');
+
+
 let divScreen = document.getElementsByClassName('screen');
 
 const appData = {
@@ -27,6 +30,7 @@ const appData = {
     screenPrice: 0,
     adaptive: true,
     rollback: 0,
+    cmsValue: 0,
     isError: false,
     countScreen: 0,
     fullPrice: 0,
@@ -43,6 +47,34 @@ const appData = {
         buttonScreen.addEventListener('click', this.addScreenBlock);
         inputSliderRollback.addEventListener('input', this.addSpanRangeValue);
         inputSliderRollback.addEventListener('change', this.addRollbackValue.bind(appData));
+        inputCms.addEventListener('change', this.cmsOpenOtherSelect);
+    },
+    cmsOpenOtherSelect: function () {
+        const cmsVariants = document.querySelector('.hidden-cms-variants');
+        const otherBlock = cmsVariants.querySelector('.hidden-cms-variants .main-controls__input');
+        const otherSelect = cmsVariants.querySelector('.hidden-cms-variants #cms-select');
+
+        if (inputCms.checked) {
+            cmsVariants.style.display = 'flex';
+
+            otherSelect.addEventListener('change', (() => {
+                if (otherSelect.value === 'other') {
+                    otherBlock.style.display = 'block';
+                    otherBlock.addEventListener('change', (() => {
+                        this.cmsValue = +otherBlock.value;
+                    }));
+                    console.log(this.cmsValue)
+                } else if (otherSelect.value === '50'){
+                    otherBlock.style.display = 'none';
+                    this.cmsValue = +otherSelect.value;
+                    console.log(this.cmsValue)
+                } else {
+                    otherBlock.style.display = 'none';
+                }
+            }))
+        } else {
+            cmsVariants.style.display = 'none';
+        }
     },
     checkValue: function () {
         this.isError = false;
