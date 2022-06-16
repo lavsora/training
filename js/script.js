@@ -46,12 +46,12 @@ const appData = {
     init: function () {
         this.addTitle();
 
-        buttonStart.addEventListener('click', this.checkValue.bind(appData));
-        buttonReset.addEventListener('click', this.reset.bind(appData));
+        buttonStart.addEventListener('click', this.checkValue.bind(this));
+        buttonReset.addEventListener('click', this.reset.bind(this));
         buttonScreen.addEventListener('click', this.addScreenBlock);
         inputSliderRollback.addEventListener('input', this.addSpanRangeValue);
-        inputSliderRollback.addEventListener('change', this.addRollbackValue.bind(appData));
-        inputCms.addEventListener('change', this.cmsOpen.bind(appData));
+        inputSliderRollback.addEventListener('change', this.addRollbackValue.bind(this));
+        inputCms.addEventListener('change', this.cmsOpen.bind(this));
     },
     cmsOpen: function () {
         if (inputCms.checked) {
