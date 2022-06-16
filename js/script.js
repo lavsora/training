@@ -23,7 +23,7 @@ const inputCms = document.querySelector('#cms-open');
 const cmsVariants = document.querySelector('.hidden-cms-variants');
 const otherBlock = document.querySelector('.hidden-cms-variants .main-controls__input');
 const cmsSelect = document.querySelector('.hidden-cms-variants #cms-select');
-const otherInput = otherBlock.querySelector('#cms-other-input');
+const otherInput = document.querySelector('#cms-other-input');
 
 let divScreen = document.getElementsByClassName('screen');
 
@@ -146,9 +146,9 @@ const appData = {
         }
     },
     disabledCheckbox: function () {
-        const cms = document.querySelector('#cms-open');
-
-        cms.setAttribute('disabled', 'disabled');
+        inputCms.setAttribute('disabled', 'disabled');
+        cmsSelect.setAttribute('disabled', 'disabled');
+        otherInput.setAttribute('disabled', 'disabled');
 
         percent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
@@ -166,9 +166,9 @@ const appData = {
         buttonScreen.setAttribute('disabled', 'disabled');
     },
     activatedCheckbox: function () {
-        const cms = document.querySelector('#cms-open');
-
-        cms.removeAttribute('disabled');
+        inputCms.removeAttribute('disabled');
+        cmsSelect.removeAttribute('disabled');
+        otherInput.removeAttribute('disabled');
 
         percent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
@@ -274,13 +274,23 @@ const appData = {
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
 
         if (this.cmsPercent > 0) {
-            this.cmsPercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.cmsPercent / 100));
+            this.cmsPercentPrice = Math.ceil(this.fullPrice * (this.cmsPercent / 100));
             this.fullPrice = this.fullPrice + this.cmsPercentPrice;
         }
 
         this.servicePercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.rollback / 100));
     },
     deleteCheck: function () {
+        if (inputCms.checked) {
+            if (cmsSelect.value === 'other') {
+                otherInput.value = '';
+                otherBlock.style.display = 'none';
+            }
+            cmsSelect.value = '';
+            inputCms.checked = false;
+            cmsVariants.style.display = 'none';
+        }
+
         percent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
 
