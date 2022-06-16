@@ -20,7 +20,10 @@ const inputFullPrice = document.getElementsByClassName('total-input')[3];
 const inputFullPriceRollback = document.getElementsByClassName('total-input')[4];
 
 const inputCms = document.querySelector('#cms-open');
-
+const cmsVariants = document.querySelector('.hidden-cms-variants');
+const otherBlock = document.querySelector('.hidden-cms-variants .main-controls__input');
+const cmsSelect = document.querySelector('.hidden-cms-variants #cms-select');
+const otherInput = otherBlock.querySelector('#cms-other-input');
 
 let divScreen = document.getElementsByClassName('screen');
 
@@ -30,7 +33,8 @@ const appData = {
     screenPrice: 0,
     adaptive: true,
     rollback: 0,
-    cmsValue: 0,
+    cmsPercent: 0,
+    cmsPercentPrice: 0,
     isError: false,
     countScreen: 0,
     fullPrice: 0,
@@ -47,33 +51,39 @@ const appData = {
         buttonScreen.addEventListener('click', this.addScreenBlock);
         inputSliderRollback.addEventListener('input', this.addSpanRangeValue);
         inputSliderRollback.addEventListener('change', this.addRollbackValue.bind(appData));
-        inputCms.addEventListener('change', this.cmsOpenOtherSelect);
+        inputCms.addEventListener('change', this.cmsOpen.bind(appData));
     },
-    cmsOpenOtherSelect: function () {
-        const cmsVariants = document.querySelector('.hidden-cms-variants');
-        const otherBlock = cmsVariants.querySelector('.hidden-cms-variants .main-controls__input');
-        const otherSelect = cmsVariants.querySelector('.hidden-cms-variants #cms-select');
-
+    cmsOpen: function () {
         if (inputCms.checked) {
             cmsVariants.style.display = 'flex';
-
-            otherSelect.addEventListener('change', (() => {
-                if (otherSelect.value === 'other') {
-                    otherBlock.style.display = 'block';
-                    otherBlock.addEventListener('change', (() => {
-                        this.cmsValue = +otherBlock.value;
-                    }));
-                    console.log(this.cmsValue)
-                } else if (otherSelect.value === '50'){
-                    otherBlock.style.display = 'none';
-                    this.cmsValue = +otherSelect.value;
-                    console.log(this.cmsValue)
-                } else {
-                    otherBlock.style.display = 'none';
-                }
-            }))
+            this.otherSelectVision();
         } else {
             cmsVariants.style.display = 'none';
+
+            cmsSelect.value = '';
+            otherBlock.style.display = 'none';
+        }
+    },
+    otherSelectVision: function() {
+        cmsSelect.addEventListener('change', (() => {
+            if (cmsSelect.value === 'other') {
+                otherBlock.style.display = 'block';
+            } else if (cmsSelect.value === '50'){
+                otherBlock.style.display = 'none';
+            } else {
+                otherBlock.style.display = 'none';
+            }
+        }))
+    },
+    addCmsValue: function() {
+        if (inputCms.checked) {
+            if (cmsSelect.value === 'other') {
+                this.cmsPercent = +otherInput.value;
+            } else if (cmsSelect.value === '50'){
+                this.cmsPercent = +cmsSelect.value;
+            } else {
+                this.cmsPercent = 0;
+            }
         }
     },
     checkValue: function () {
@@ -99,6 +109,7 @@ const appData = {
     },
     start: function () {
         this.addScreens();
+        this.addCmsValue();
         this.addServices();
         this.addPrices();
         this.showResult();
@@ -218,6 +229,11 @@ const appData = {
 
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
 
+        if (this.cmsPercent > 0) {
+            this.cmsPercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.cmsPercent / 100));
+            this.fullPrice = this.fullPrice + this.cmsPercentPrice;
+        }
+
         this.servicePercentPrice = Math.ceil(this.fullPrice - this.fullPrice * (this.rollback / 100));
     },
     deleteCheck: function () {
@@ -244,6 +260,8 @@ const appData = {
         this.countScreen = 0;
         this.rollback = 0;
         this.fullPrice = 0;
+        this.cmsPercent = 0;
+        this.cmsPercentPrice = 0;
         this.servicePercentPrice = 0;
         this.servicePricesPercent = 0;
         this.servicePricesNumber = 0;
